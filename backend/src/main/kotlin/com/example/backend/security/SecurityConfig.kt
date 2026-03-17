@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
-import org.springframework.security.provisioning.UserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
@@ -28,7 +27,6 @@ class SecurityConfig() {
         http
             .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
-            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/api/login").permitAll()
@@ -65,11 +63,4 @@ class SecurityConfig() {
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
-
-    @Bean
-    fun userDetailsService(encoder: PasswordEncoder): UserDetailsService {
-        val password = encoder.encode("password")
-        val user = User.withUsername("user").password(password).roles("USER").build()
-        return InMemoryUserDetailsManager(user)
-    }
 }
