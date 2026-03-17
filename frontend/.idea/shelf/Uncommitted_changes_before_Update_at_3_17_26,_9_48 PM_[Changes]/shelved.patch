@@ -1,0 +1,191 @@
+Index: ../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt b/../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt
+new file mode 100644
+--- /dev/null	(date 1773780214562)
++++ b/../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt	(date 1773780214562)
+@@ -0,0 +1,16 @@
++package com.example.backend.service
++
++import com.example.backend.repository.PlaceholderUserRepository
++import org.springframework.security.core.userdetails.User
++import org.springframework.security.core.userdetails.UserDetails
++import org.springframework.security.core.userdetails.UserDetailsService
++import org.springframework.stereotype.Service
++
++@Service
++class UserDetailsServiceImplementation(val repo: PlaceholderUserRepository): UserDetailsService {
++    override fun loadUserByUsername(username: String?): UserDetails? {
++        if (username == null) throw RuntimeException("Username cannot be null")
++        val user = repo.findByUsername(username) ?: throw RuntimeException("User not found")
++        return User.withUsername(user.username).password(user.passwordHash).roles("USER").build()
++    }
++}
+\ No newline at end of file
+Index: ../backend/src/main/kotlin/com/example/backend/service/AuthService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.backend.service\n\nimport com.example.backend.dto.AuthResponse\nimport com.example.backend.dto.LoginRequest\nimport com.example.backend.dto.RegisterRequest\nimport jakarta.servlet.http.HttpServletRequest\nimport org.springframework.security.authentication.AuthenticationManager\nimport org.springframework.security.authentication.UsernamePasswordAuthenticationToken\nimport org.springframework.security.core.Authentication\nimport org.springframework.security.core.context.SecurityContextHolder\nimport org.springframework.security.core.userdetails.User\nimport org.springframework.security.core.userdetails.UserDetails\nimport org.springframework.security.crypto.password.PasswordEncoder\nimport org.springframework.security.provisioning.UserDetailsManager\nimport org.springframework.security.web.context.HttpSessionSecurityContextRepository\nimport org.springframework.stereotype.Service\n\n@Service\nclass AuthService(\n    private val userDetailsManager: UserDetailsManager,\n    private val passwordEncoder: PasswordEncoder,\n    private val authenticationManager: AuthenticationManager\n) {\n\n    fun register(data: RegisterRequest,req: HttpServletRequest): AuthResponse {\n        // Check if user exists\n        if (userDetailsManager.userExists(data.username)) {\n            throw RuntimeException(\"Username already exists\")\n        }\n\n        // Create user with USER role\n        val user: UserDetails = User.builder()\n            .username(data.username)\n            .password(passwordEncoder.encode(data.password))\n            .roles(\"USER\")\n            .build()\n\n        userDetailsManager.createUser(user)\n\n        return AuthResponse(\n            id = 0,\n            username = user.username\n        )\n    }\n\n    fun login(data: LoginRequest,req: HttpServletRequest): AuthResponse {\n        print(\"Logging in as ${data.username}\")\n        val authentication: Authentication = authenticationManager.authenticate(\n            UsernamePasswordAuthenticationToken(\n                data.username,\n                data.password\n            )\n        )\n\n        // Create session and cookie\n        val context = SecurityContextHolder.createEmptyContext()\n        context.authentication = authentication\n        SecurityContextHolder.setContext(context)\n\n        req.session.setAttribute(\n            HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,\n            context\n        )\n\n        return if (authentication.isAuthenticated) {\n            AuthResponse(\n                id = 0,\n                username = data.username,\n            )\n        } else {\n            throw RuntimeException(\"Invalid credentials\")\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt b/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt
+--- a/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt	(revision 5adf26e552fbadd178b76c786b906fd8351aa13e)
++++ b/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt	(date 1773780013873)
+@@ -3,10 +3,13 @@
+ import com.example.backend.dto.AuthResponse
+ import com.example.backend.dto.LoginRequest
+ import com.example.backend.dto.RegisterRequest
++import com.example.backend.repository.PlaceholderUserRepository
+ import jakarta.servlet.http.HttpServletRequest
+ import org.springframework.security.authentication.AuthenticationManager
++import org.springframework.security.authentication.BadCredentialsException
+ import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+ import org.springframework.security.core.Authentication
++import org.springframework.security.core.GrantedAuthority
+ import org.springframework.security.core.context.SecurityContextHolder
+ import org.springframework.security.core.userdetails.User
+ import org.springframework.security.core.userdetails.UserDetails
+@@ -15,27 +18,23 @@
+ import org.springframework.security.web.context.HttpSessionSecurityContextRepository
+ import org.springframework.stereotype.Service
+ 
++
+ @Service
+ class AuthService(
+-    private val userDetailsManager: UserDetailsManager,
+     private val passwordEncoder: PasswordEncoder,
+-    private val authenticationManager: AuthenticationManager
++    private val authenticationManager: AuthenticationManager,
++    private val repo: PlaceholderUserRepository,
+ ) {
+ 
+-    fun register(data: RegisterRequest,req: HttpServletRequest): AuthResponse {
+-        // Check if user exists
+-        if (userDetailsManager.userExists(data.username)) {
++    fun register(data: RegisterRequest, req: HttpServletRequest): AuthResponse {
++        // Check if a user exists
++        if (repo.findByUsername(data.username) != null) {
+             throw RuntimeException("Username already exists")
+         }
+ 
+-        // Create user with USER role
+-        val user: UserDetails = User.builder()
+-            .username(data.username)
+-            .password(passwordEncoder.encode(data.password))
+-            .roles("USER")
+-            .build()
++        val user = com.example.backend.entity.User(data.username, passwordEncoder.encode(data.password))
+ 
+-        userDetailsManager.createUser(user)
++        repo.save(user)
+ 
+         return AuthResponse(
+             id = 0,
+@@ -43,7 +42,7 @@
+         )
+     }
+ 
+-    fun login(data: LoginRequest,req: HttpServletRequest): AuthResponse {
++    fun login(data: LoginRequest, req: HttpServletRequest): AuthResponse {
+         print("Logging in as ${data.username}")
+         val authentication: Authentication = authenticationManager.authenticate(
+             UsernamePasswordAuthenticationToken(
+@@ -52,7 +51,7 @@
+             )
+         )
+ 
+-        // Create session and cookie
++        // Create a session and cookie
+         val context = SecurityContextHolder.createEmptyContext()
+         context.authentication = authentication
+         SecurityContextHolder.setContext(context)
+@@ -71,4 +70,34 @@
+             throw RuntimeException("Invalid credentials")
+         }
+     }
++
++    private fun authenticate(username: String, password: String?): Authentication {
++        println("$username---++----$password")
++
++        val userObject = repo.findByUsername(username)
++        if (userObject == null) {
++            println("User not found")
++            throw BadCredentialsException("Invalid username and password")
++        }
++
++        val userDetails: UserDetails? = User
++            .withUsername(userObject.username)
++            .password(userObject.passwordHash)
++            .roles("USER")
++            .build()
++
++        println("Sig in in user details $userDetails")
++
++        if (userDetails == null) {
++            println("Sign in details - null $userDetails")
++
++            throw BadCredentialsException("Invalid username and password")
++        }
++        if (!passwordEncoder.matches(password, userDetails.password)) {
++            println("Sign in userDetails - password mismatch $userDetails")
++
++            throw BadCredentialsException("Invalid password")
++        }
++        return UsernamePasswordAuthenticationToken(userDetails, null)
++    }
+ }
+\ No newline at end of file
+Index: ../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.backend.security\n\nimport org.springframework.context.annotation.Bean\nimport org.springframework.context.annotation.Configuration\nimport org.springframework.security.authentication.AuthenticationManager\nimport org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration\nimport org.springframework.security.config.annotation.web.builders.HttpSecurity\nimport org.springframework.security.config.annotation.web.configuration.EnableWebSecurity\nimport org.springframework.security.config.http.SessionCreationPolicy\nimport org.springframework.security.core.userdetails.User\nimport org.springframework.security.core.userdetails.UserDetailsService\nimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder\nimport org.springframework.security.crypto.password.PasswordEncoder\nimport org.springframework.security.provisioning.InMemoryUserDetailsManager\nimport org.springframework.security.provisioning.UserDetailsManager\nimport org.springframework.security.web.SecurityFilterChain\nimport org.springframework.web.cors.CorsConfiguration\nimport org.springframework.web.cors.CorsConfigurationSource\nimport org.springframework.web.cors.UrlBasedCorsConfigurationSource\n\n\n@Configuration\n@EnableWebSecurity\nclass SecurityConfig() {\n\n    @Bean\n    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {\n        http\n            .cors { it.configurationSource(corsConfigurationSource()) }\n            .csrf { it.disable() }\n            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }\n            .authorizeHttpRequests {\n                it\n                    .requestMatchers(\"/api/login\").permitAll()\n                    .requestMatchers(\"/api/register\").permitAll()\n                    .requestMatchers(\"/api/public/**\").permitAll()\n                    .requestMatchers(\"/api/optional\").permitAll()\n                    .anyRequest().authenticated()\n            }\n            .formLogin { it.disable() }\n            .logout {}\n\n        return http.build()\n    }\n\n    @Bean\n    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager {\n        return config.authenticationManager\n    }\n\n    @Bean\n    fun corsConfigurationSource(): CorsConfigurationSource {\n        val configuration = CorsConfiguration()\n        configuration.allowedOrigins = mutableListOf(\"http://localhost:5173\")\n        configuration.allowedMethods = mutableListOf(\"*\");\n        configuration.allowedHeaders = mutableListOf(\"*\");\n        configuration.exposedHeaders = mutableListOf(\"Authorization\",\"Content-Disposition\");\n        configuration.maxAge = 0;\n        configuration.allowCredentials = true\n\n        val source = UrlBasedCorsConfigurationSource()\n        source.registerCorsConfiguration(\"/**\", configuration)\n        return source\n    }\n\n    @Bean\n    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()\n\n    @Bean\n    fun userDetailsService(encoder: PasswordEncoder): UserDetailsService {\n        val password = encoder.encode(\"password\")\n        val user = User.withUsername(\"user\").password(password).roles(\"USER\").build()\n        return InMemoryUserDetailsManager(user)\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt b/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt
+--- a/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt	(revision 5adf26e552fbadd178b76c786b906fd8351aa13e)
++++ b/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt	(date 1773780076983)
+@@ -65,11 +65,4 @@
+ 
+     @Bean
+     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+-
+-    @Bean
+-    fun userDetailsService(encoder: PasswordEncoder): UserDetailsService {
+-        val password = encoder.encode("password")
+-        val user = User.withUsername("user").password(password).roles("USER").build()
+-        return InMemoryUserDetailsManager(user)
+-    }
+ }
+\ No newline at end of file
+Index: ../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt b/../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt
+new file mode 100644
+--- /dev/null	(date 1773778171377)
++++ b/../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt	(date 1773778171377)
+@@ -0,0 +1,16 @@
++package com.example.backend.repository
++
++import com.example.backend.entity.User
++import org.springframework.stereotype.Repository
++
++@Repository
++class PlaceholderUserRepository {
++    val users = mutableListOf<User>()
++
++    fun save(user: User) {
++        users.add(user)
++    }
++    fun findByUsername(username: String): User? {
++        return users.find { it.username == username }
++    }
++}
+\ No newline at end of file
