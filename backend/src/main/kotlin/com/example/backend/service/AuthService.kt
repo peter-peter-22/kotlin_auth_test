@@ -5,7 +5,6 @@ import com.example.backend.dto.LoginRequest
 import com.example.backend.dto.RegisterRequest
 import com.example.backend.repository.PlaceholderUserRepository
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -19,11 +18,10 @@ import org.springframework.stereotype.Service
 @Service
 class AuthService(
     private val passwordEncoder: PasswordEncoder,
-    private val authenticationManager: AuthenticationManager,
     private val repo: PlaceholderUserRepository
 ) {
 
-    fun register(data: RegisterRequest,req: HttpServletRequest): AuthResponse {
+    fun register(data: RegisterRequest, req: HttpServletRequest): AuthResponse {
         // Check if a user exists
         if (repo.findByUsername(data.username) != null) {
             throw RuntimeException("Username already exists")
@@ -40,7 +38,7 @@ class AuthService(
         )
     }
 
-    fun login(data: LoginRequest,req: HttpServletRequest): AuthResponse {
+    fun login(data: LoginRequest, req: HttpServletRequest): AuthResponse {
         println("Logging in as ${data.username}")
         val authentication: Authentication = authenticate(data.username, data.password)
 
@@ -81,11 +79,13 @@ class AuthService(
 
             throw BadCredentialsException("Invalid username and password")
         }
+
         if (!passwordEncoder.matches(password, userDetails.password)) {
             println("Sign in userDetails password mismatch $userDetails")
 
             throw BadCredentialsException("Invalid password")
         }
+
         return UsernamePasswordAuthenticationToken(userDetails, password, userDetails.authorities)
     }
 }

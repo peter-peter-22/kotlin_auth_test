@@ -21,8 +21,13 @@ async function get_public(): Promise<ApiResponse> {
 }
 
 async function get_private(): Promise<ApiResponse> {
-    const res = await client.post("/api/private");
+    const res = await client.get("/api/private");
     return res.data
 }
 
-export { post_login, get_public, get_private, get_optional,post_register };
+async function logout(): Promise<ApiResponse> {
+    const res = await client.get("/api/logout");
+    return res.data
+}
+
+export { post_login, get_public, get_private, get_optional,post_register,logout };

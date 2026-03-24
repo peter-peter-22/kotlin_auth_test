@@ -5,5 +5,6 @@ export default [
     route("/optional","routes/optional.tsx"),
     route("/private","routes/private.tsx"),
     route("/login","routes/login.tsx"),
-    route("/register","routes/register.tsx")
+    route("/register","routes/register.tsx"),
+    route("/logout","routes/logout.tsx")
 ] satisfies RouteConfig;

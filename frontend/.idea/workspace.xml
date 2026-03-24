@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a480fa7-7c94-4213-8f9a-99fb0c36578b" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/components/pages/Logout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/logout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/controller/RegistrationController.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/repository/DatabaseUserDetailsManager.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/layouts/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,18 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "peter-peter-22"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;peter-peter-22&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/peter-peter-22/kotlin_auth_test.git",
-    "accountId": "728d91df-de05-4fb3-be02-1d1cc4f43c09"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/peter-peter-22/kotlin_auth_test.git&quot;,
+    &quot;accountId&quot;: &quot;728d91df-de05-4fb3-be02-1d1cc4f43c09&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -41,10 +46,13 @@
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="3B5YAkYWtunQspDWaLvsSF7wXBU" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -61,6 +69,7 @@
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/peter/IdeaProjects/kotlin_auth_test/frontend/app/components/pages",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,9 +77,16 @@
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
     "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/home/peter/IdeaProjects/kotlin_auth_test/frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/components/pages" />
+      <recent name="$PROJECT_DIR$/app/routes" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -91,8 +107,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
@@ -104,6 +120,7 @@
       <option name="presentableId" value="Default" />
       <updated>1773780257132</updated>
       <workItem from="1773780258420" duration="2312000" />
+      <workItem from="1774347828232" duration="1678000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />

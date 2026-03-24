@@ -36,7 +36,7 @@ class SecurityConfig() {
                     .anyRequest().authenticated()
             }
             .formLogin { it.disable() }
-            .logout {}
+            .logout { it.logoutUrl("/api/logout") }
 
         return http.build()
     }
@@ -52,7 +52,7 @@ class SecurityConfig() {
         configuration.allowedOrigins = mutableListOf("http://localhost:5173")
         configuration.allowedMethods = mutableListOf("*");
         configuration.allowedHeaders = mutableListOf("*");
-        configuration.exposedHeaders = mutableListOf("Authorization","Content-Disposition");
+        configuration.exposedHeaders = mutableListOf("Authorization", "Content-Disposition");
         configuration.maxAge = 0;
         configuration.allowCredentials = true
 

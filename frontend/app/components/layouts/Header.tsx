@@ -17,5 +17,8 @@ export default function Header(){
         <NavLink to="/optional" end>
             Optional
         </NavLink>
+        <NavLink to="/logout" end>
+            Logout
+        </NavLink>
     </nav>
 }
