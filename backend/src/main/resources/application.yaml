@@ -2,6 +2,12 @@ spring:
   application:
     name: backend
 
+  session:
+    jdbc:
+      initialize-schema: never
+      table-name: SPRING_SESSION
+  # The h2 database is automatically registered as a datasource
+
 server:
   servlet:
     session:

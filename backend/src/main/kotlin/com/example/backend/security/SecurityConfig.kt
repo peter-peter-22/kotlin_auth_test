@@ -39,13 +39,17 @@ class SecurityConfig {
         http
             .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
+            // fix the blocked rendering of the h2 console
+            .headers { headers ->
+                headers.frameOptions { frameOptions ->
+                    frameOptions.sameOrigin()
+                }
+            }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/api/login").permitAll()
-                    .requestMatchers("/api/register").permitAll()
-                    .requestMatchers("/api/public/**").permitAll()
-                    .requestMatchers("/api/optional").permitAll()
-                    .anyRequest().authenticated()
+                    .requestMatchers("/api/optional").authenticated()
+                    .requestMatchers("/api/private").authenticated()
+                    .anyRequest().permitAll()
             }
             .formLogin { it.disable() }
             .logout { it.logoutUrl("/api/logout") }
@@ -73,7 +77,7 @@ class SecurityConfig {
         configuration.allowedOrigins = mutableListOf("http://localhost:5173")
         configuration.allowedMethods = mutableListOf("*")
         configuration.allowedHeaders = mutableListOf("*")
-        configuration.exposedHeaders = mutableListOf("Authorization", "Content-Disposition")
+        configuration.exposedHeaders = mutableListOf("*")
         configuration.maxAge = 0
         configuration.allowCredentials = true
 

@@ -4,10 +4,10 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("users")
+@Table("USERS")
 data class User(
     val username: String,
-    @Column("password_hash")
+    @Column("PASSWORD_HASH")
     val passwordHash: String,
     @Id val id: Long? = null
 )

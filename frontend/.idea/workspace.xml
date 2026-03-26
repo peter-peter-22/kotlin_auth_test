@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a480fa7-7c94-4213-8f9a-99fb0c36578b" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/../backend/roadmap.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/auth/AuthService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/JDBCUserRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/PlaceholderUserRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/User.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/UserDetailsService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/UserRepository.kt" afterDir="false" />
+    <list default="true" id="6a480fa7-7c94-4213-8f9a-99fb0c36578b" name="Changes" comment="wip">
+      <change afterPath="$PROJECT_DIR$/../backend/info.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/SampleData.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/entity/User.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/repository/PlaceholderUserRepository.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/repository/UserRepository.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/security/SecurityConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/service/AuthService.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/service/UserDetailsServiceImplementation.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/kotlin/com/example/backend/user/User.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,43 +49,35 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="3B5YAkYWtunQspDWaLvsSF7wXBU" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/peter/IdeaProjects/kotlin_auth_test/frontend/app/components/pages&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/peter/IdeaProjects/kotlin_auth_test/frontend/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/peter/.nvm/versions/node/v24.13.0/bin/node",
+    "nodejs_package_manager_path": "pnpm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "settings.javascript.runtime",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/components/pages" />
-      <recent name="$PROJECT_DIR$/app/routes" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -115,8 +98,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
       </set>
     </attachedChunks>
   </component>
@@ -127,10 +110,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1773780257132</updated>
-      <workItem from="1773780258420" duration="2312000" />
-      <workItem from="1774347828232" duration="2459000" />
-      <workItem from="1774356025011" duration="2050000" />
-      <workItem from="1774512990553" duration="6507000" />
+      <workItem from="1773780258420" duration="2326000" />
+      <workItem from="1774557725058" duration="869000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -140,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773780598523</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773782811317</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773782811317</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +148,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
