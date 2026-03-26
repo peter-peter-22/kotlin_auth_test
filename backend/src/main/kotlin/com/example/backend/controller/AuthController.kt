@@ -3,13 +3,13 @@ package com.example.backend.controller
 import com.example.backend.dto.AuthResponse
 import com.example.backend.dto.LoginRequest
 import com.example.backend.dto.RegisterRequest
-import com.example.backend.service.AuthService
+import com.example.backend.auth.AuthService
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository
-import org.springframework.web.bind.annotation.*
+import jakarta.servlet.http.HttpServletResponse
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
@@ -19,17 +19,17 @@ class AuthController(
 
     @PostMapping("/login")
     fun login(
-        @RequestBody req: LoginRequest,
-        request: HttpServletRequest
+        @RequestBody data: LoginRequest,
+        request: HttpServletRequest,
+        response: HttpServletResponse
     ): AuthResponse {
-        return authService.login(req,request)
+        return authService.login(data,request,response)
     }
 
     @PostMapping("/register")
     fun register(
-        @RequestBody req: RegisterRequest,
-        request: HttpServletRequest
+        @RequestBody data: RegisterRequest
     ): AuthResponse {
-        return authService.register(req,request)
+        return authService.register(data)
     }
 }

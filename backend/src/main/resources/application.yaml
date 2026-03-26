@@ -1,3 +1,16 @@
 spring:
   application:
     name: backend
+
+server:
+  servlet:
+    session:
+      timeout: 30m # default
+      cookie:
+        http-only: true
+        secure: true
+        same-site: strict
+
+app:
+  my-config:
+    user-repository: database
